@@ -443,12 +443,6 @@
             display: grid;
         }
         
-        @media (min-width: 700px) {
-            .email-card-position {
-                grid-column: 2;
-            }
-        }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -677,27 +671,27 @@
             </div>
         </div>
         <div id="socials" class="grid-container active">
-            <div class="card reveal-on-scroll" onclick="window.open('https://github.com/siddhrrth', '_blank')">
+            <div class="card reveal-on-scroll slide-from-top-left delay-100" onclick="window.open('https://github.com/siddhrrth', '_blank')">
                 <div class="card-icon"><svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></div>
                 <h3>GitHub</h3>
                 <p>Explore my repositories, open source contributions, and code experiments.</p>
             </div>
-            <div class="card reveal-on-scroll" onclick="void(0)">
+            <div class="card reveal-on-scroll slide-from-top-right delay-100" onclick="void(0)">
                 <div class="card-icon"><svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
                 <h3>LeetCode</h3>
                 <p>Track my problem-solving journey through algorithms and data structures.</p>
             </div>
-            <div class="card reveal-on-scroll" onclick="window.open('https://linkedin.com', '_blank')">
+            <div class="card reveal-on-scroll slide-from-bottom-left delay-100" onclick="window.open('https://linkedin.com', '_blank')">
                 <div class="card-icon"><svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></div>
                 <h3>LinkedIn</h3>
                 <p>Connect professionally, view my experience, and check out my network.</p>
             </div>
-            <div class="card reveal-on-scroll" onclick="window.open('https://x.com/siddhrrth', '_blank')">
+            <div class="card reveal-on-scroll slide-from-bottom-right delay-100" onclick="window.open('https://x.com/siddhrrth', '_blank')">
                 <div class="card-icon"><svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor; stroke: none;"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg></div>
                 <h3>X</h3>
                 <p>Follow my thoughts, tech updates, and random musings.</p>
             </div>
-            <div class="card reveal-on-scroll" onclick="window.open('https://instagram.com', '_blank')">
+            <div class="card reveal-on-scroll slide-from-bottom-right delay-100" onclick="window.open('https://instagram.com', '_blank')">
                 <div class="card-icon"><svg class="icon-svg" width="24" height="24" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
                 <h3>Instagram</h3>
                 <p>Visual stories, daily highlights, and photography from my universe.</p>
@@ -786,15 +780,19 @@
             class Star {
                 constructor() { this.init(); }
                 init() {
-                    this.x = Math.random() * width; this.y = Math.random() * height;
-                    this.size = Math.random() * 1.5; this.opacity = Math.random();
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = Math.random() * width;
+                    this.size = Math.random() * 1.5;
+                    this.opacity = Math.random();
                     this.fadeSpeed = Math.random() * 0.02 + 0.005;
                 }
                 update() {
                     if (!isWarping) {
                         this.opacity += this.fadeSpeed;
                         if(this.opacity > 1 || this.opacity < 0) this.fadeSpeed = -this.fadeSpeed;
-                        this.x += (Math.random() - 0.5) * 0.1; this.y += (Math.random() - 0.5) * 0.1;
+                        this.x += (Math.random() - 0.5) * 0.1;
+                        this.y += (Math.random() - 0.5) * 0.1;
                     } else {
                         const centerX = width / 2, centerY = height / 2;
                         const dx = this.x - centerX, dy = this.y - centerY;
@@ -812,7 +810,8 @@
                     ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(this.opacity)})`;
                     ctx.beginPath();
                     if (isWarping) {
-                        const angle = Math.atan2(this.y - height/2, this.x - width/2), len = Math.min(30, Math.sqrt(Math.pow(this.x - width/2, 2) + Math.pow(this.y - height/2, 2)) * 0.1);
+                        const centerX = width / 2, centerY = height / 2;
+                        const dx = this.x - centerX, dy = this.y - centerY, angle = Math.atan2(dy, dx), len = Math.min(30, Math.sqrt(dx*dx + dy*dy) * 0.1);
                         ctx.strokeStyle = `rgba(255, 255, 255, ${Math.abs(this.opacity)})`;
                         ctx.lineWidth = this.size;
                         ctx.moveTo(this.x, this.y); ctx.lineTo(this.x - Math.cos(angle) * len, this.y - Math.sin(angle) * len); ctx.stroke();
@@ -825,7 +824,8 @@
                     this.x = Math.random() * width; this.y = 0;
                     this.len = Math.random() * 80 + 10; this.speed = Math.random() * 10 + 6;
                     this.size = Math.random() * 1 + 0.1; this.angle = Math.PI / 4;
-                    this.waitTime = Date.now() + (isWarping ? Math.random() * 200 : Math.random() * 2000 + 200);
+                    const delay = isWarping ? Math.random() * 200 : Math.random() * 2000 + 200;
+                    this.waitTime = new Date().getTime() + delay;
                     this.active = false;
                 }
                 update() {
@@ -855,8 +855,8 @@
                 stars.forEach(s => { s.update(); s.draw(); });
                 shootingStars.forEach(s => { s.update(); s.draw(); });
                 if (isWarping && Math.random() > 0.85) {
-                    const inactive = shootingStars.find(s => !s.active);
-                    if (inactive) { inactive.active = true; inactive.x = Math.random() * width + 200; inactive.y = -50; inactive.waitTime = 0; }
+                      const inactive = shootingStars.find(s => !s.active);
+                      if (inactive) { inactive.active = true; inactive.x = Math.random() * width + 200; inactive.y = -50; inactive.waitTime = 0; }
                 }
                 requestAnimationFrame(animate);
             }
